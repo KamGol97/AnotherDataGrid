@@ -5,9 +5,15 @@
     <Compile Update="AnotherDataGrid.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DataGridResizableHeaderControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="AnotherDataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DataGridResizableHeaderControl.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

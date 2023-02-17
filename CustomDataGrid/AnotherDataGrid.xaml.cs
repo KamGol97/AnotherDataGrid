@@ -50,7 +50,6 @@ public partial class AnotherDataGrid : UserControl
 
         var itemsSource = Items.Select(x => converter.Convert(x, typeof(UIElement), Columns, new CultureInfo(""))).ToList();
 
-        //MyItemsControl.SetBinding(ItemsControl.ItemsSourceProperty, bind);
         MyItemsControl.ItemsSource = itemsSource;
     }
 
@@ -78,7 +77,7 @@ public class BuildRowConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        object returnObject= null;
+        object returnObject = null;
 
         if (parameter is IList<CustomDataGridColumn> columnsList
 
@@ -90,7 +89,7 @@ public class BuildRowConverter : IValueConverter
             foreach (var col in columnsList)
             {
                 var colDef = new ColumnDefinition();
-                colDef.Width = new GridLength(col.Header.ActualWidth,GridUnitType.Pixel);
+                colDef.Width = new GridLength(col.Header.ActualWidth, GridUnitType.Pixel);
                 grid.ColumnDefinitions.Add(colDef);
             }
 
@@ -110,7 +109,7 @@ public class BuildRowConverter : IValueConverter
 
                 var presenter = new ContentPresenter();
                 presenter.Content = itemValue;
-                presenter.HorizontalAlignment= HorizontalAlignment.Stretch;
+                presenter.HorizontalAlignment = HorizontalAlignment.Stretch;
                 presenter.Height = 15;
 
                 Grid.SetColumn(presenter, i);
@@ -135,10 +134,15 @@ public class DesignHeadersSource : ObservableCollection<CustomDataGridColumn>
     {
         var list = Enumerable
             .Range(0, DesignHelper.HowManyHeaders)
-            .Select(i => new CustomDataGridColumn()
+            .Select(i =>
             {
-                Header = DesignHelper.GetButton($"I'm {i} header"),
-                ContentBinding = new Binding { Path = new PropertyPath($"Column{i}") }
+                var aa = new DataGridResizableHeaderControl();
+                aa.MainContentPresenter.Content = DesignHelper.GetButton("i'm header " + i.ToString());
+                return new CustomDataGridColumn()
+                {
+                    Header = aa,
+                    ContentBinding = new Binding { Path = new PropertyPath($"Column{i}") }
+                };
             })
             .ToList();
 
