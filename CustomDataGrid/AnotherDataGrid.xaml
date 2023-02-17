@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="CustomDataGrid.AnotherDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CustomDataGrid"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:DesignHeadersSource x:Key="HeadersSourceCollection"/>
+            <local:DesignRowsSource x:Key="DesignRowsSource"/>
+            <local:BuildRowConverter x:Key="BuildRowConv"/>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+        <DockPanel LastChildFill="True">
+
+            <!--#region Headers -->
+            <ItemsControl Height="20"
+                          DockPanel.Dock="Top"
+                          ItemsSource="{Binding Columns, RelativeSource={RelativeSource AncestorType=local:AnotherDataGrid}}">
+                <!--d:ItemsSource="{StaticResource HeadersSourceCollection}">-->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel  IsItemsHost="True"
+                                     Orientation="Horizontal"
+                                     VirtualizingPanel.VirtualizationMode="Recycling"
+                                     />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding Header}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!--#endregion-->
+
+            <!--<ItemsControl d:ItemsSource="{Binding RelativeSource={RelativeSource Mode=Self},  Path=DataContext, Converter={StaticResource BuildRowConv}, ConverterParameter={StaticResource HeadersSourceCollection}}"-->
+
+            <!--#region Items list -->
+            <Grid d:DataContext="{StaticResource DesignRowsSource}" x:Name="grid1">
+                <ItemsControl x:Name="MyItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel  IsItemsHost="True"
+                                     Orientation="Vertical"
+                                     VirtualizingPanel.VirtualizationMode="Recycling"
+                                     />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ContentPresenter Content="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+            </Grid>
+            <!--#endregion-->
+
+        </DockPanel>
+    </ScrollViewer>
+</UserControl>
