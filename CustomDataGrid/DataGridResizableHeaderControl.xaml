@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:CustomDataGrid"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel  Background="Red" d:Width="100" d:Height="100" LastChildFill="True">
-        <TextBlock Width="10" DockPanel.Dock="Right" Background="Black" Cursor="SizeWE"
+    <DockPanel  Background="Transparent" d:Width="100" d:Height="100" LastChildFill="True">
+        <TextBlock Width="5" DockPanel.Dock="Right" Background="Black" Cursor="SizeWE"
                    MouseDown="TextBlock_MouseDown"
                    MouseUp="TextBlock_MouseUp"
                    MouseLeave="Splitter_MouseLeave"
